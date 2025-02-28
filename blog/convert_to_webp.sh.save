@@ -1,0 +1,15 @@
+#!/bin/bash
+
+SOURCE_DIR="caminho/para/pasta/origem"
+DEST_DIR="caminho/para/pasta/destino"
+
+mkdir -p "$DEST_DIR"
+
+for img in "$SOURCE_DIR"/*.{png,jpg,jpeg}; do
+    if [ -f "$img" ]; then
+        filename=$(basename "$img")
+        filename_no_ext="${filename%.*}"
+        cwebp "$img" -o "$DEST_DIR/$filename_no_ext.webp"
+        echo "Converted $img to $DEST_DIR/$filename_no_ext.webp"
+    fi
+done
